@@ -1,12 +1,8 @@
-#
-# TODO:	- release cgi, mod_python and, mayby admin part in subpackages
-#	- mod_python configuration example in apache configuration snippet
-#
 Summary:	Browser interface for CVS and subversion version control repositories
 #Summary(pl):
 Name:		viewvc
 Version:	1.0.2
-Release:	0.1
+Release:	0.2
 License:	distributable
 Group:		Applications/WWW
 Source0:	http://viewvc.tigris.org/files/documents/3330/34450/%{name}-%{version}.tar.gz
@@ -15,14 +11,6 @@ URL:		http://www.viewvc.org/
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	webapps
-%if %{with trigger}
-Requires(triggerpostun):	sed >= 4.0
-%endif
-#Requires:	webserver(access)
-#Requires:	webserver(alias)
-#Requires:	webserver(auth)
-#Requires:	webserver(cgi)
-#Requires:	webserver(indexfile)
 Obsoletes:	viewcvs
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -60,7 +48,27 @@ Here are some of the additional features of ViewVC:
 - INI-like configuration file (as opposed to requiring actual code
   tweaks).
 
+In order to run viewvc you must install viewvc-cgi or viewvc-mod_python package.
+
 #%%description -l pl
+
+%package cgi
+Summary:	ViewVC - cgi interface
+Group:		Applications/WWW
+Requires:	%{name} = %{version}-%{release}
+Requires:	webserver(cgi)
+
+%description cgi
+ViewVC - cgi interface.
+
+%package mod_python 
+Summary:	ViewVC - mod_python interface
+Group:		Applications/WWW
+Requires:	%{name} = %{version}-%{release}
+Requires:	apache-mod_python
+
+%description mod_python
+ViewVC - mod_python interface.
 
 %prep
 %setup -q
@@ -118,12 +126,6 @@ mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
 ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 
-# %webapp_* macros usage extracted from %{_prefix}/lib/rpm/macros.build:
-#
-# Usage:
-#   %%webapp_register HTTPD WEBAPP
-#   %%webapp_unregister HTTPD WEBAPP
-
 %triggerin -- apache1 < 1.3.37-3, apache1-base
 %webapp_register apache %{_webapp}
 
@@ -156,13 +158,6 @@ rm -rf $RPM_BUILD_ROOT
 #%%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/lighttpd.conf
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
 %dir %{_appdir}/bin
-%dir %{_appdir}/bin/cgi
-%attr(750,root,http) %{_appdir}/bin/cgi/viewvc.cgi
-%attr(750,root,http) %{_appdir}/bin/cgi/query.cgi
-%dir %{_appdir}/bin/mod_python
-%{_appdir}/bin/mod_python/viewvc.py
-%{_appdir}/bin/mod_python/query.py
-%{_appdir}/bin/mod_python/handler.py
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_appdir}/bin/mod_python/.htaccess
 %attr(750,root,http) %{_appdir}/bin/standalone.py
 %attr(750,root,http) %{_appdir}/bin/loginfo-handler
@@ -261,3 +256,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/templates/revision.ezt
 %{_appdir}/templates/roots.ezt
 %{_appdir}/templates/rss.ezt
+
+%files cgi
+%defattr(644,root,root,755)
+%dir %{_appdir}/bin/cgi
+%attr(750,root,http) %{_appdir}/bin/cgi/viewvc.cgi
+%attr(750,root,http) %{_appdir}/bin/cgi/query.cgi
+
+%files mod_python
+%defattr(644,root,root,755)
+%dir %{_appdir}/bin/mod_python
+%{_appdir}/bin/mod_python/viewvc.py
+%{_appdir}/bin/mod_python/query.py
+%{_appdir}/bin/mod_python/handler.py
