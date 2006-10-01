@@ -72,16 +72,17 @@ cat > apache.conf <<'EOF'
 ScriptAlias /cgi-bin/viewvc.cgi %{_appdir}/bin/cgi/viewvc.cgi
 ScriptAlias /cgi-bin/viewvc-query.cgi %{_appdir}/bin/cgi/query.cgi
 
-<Location /cgi-bin/viewvc.cgi>
-    Allow from all
-
 # if using apache2 mod_python:
-#   <IfModule mod_python.c>
-#        AddHandler mod_python .py
-#        PythonHandler handler 
-#        PythonDebug Off 
-#   </IfModule>
-</Location>
+# Alias /viewvc	%{_appdir}/bin/mod_python
+# <Location /viewvc>
+#    Allow from all
+#	<IfModule mod_python.c>
+#		AddHandler mod_python .py
+#		PythonPath "sys.path+['%{_appdir}/bin/mod_python']"
+#		PythonHandler handler
+#		PythonDebug Off
+#	</IfModule>
+# </Location>
 
 # Version 2: viewvc as handler to whole vhost:
 #<VirtualHost *:80>
@@ -228,7 +229,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES COMMITTERS README TODO viewvc.org/license-1.html
+%doc CHANGES COMMITTERS INSTALL TODO viewvc.org/license-1.html
 %dir %attr(750,root,http) %{_webapps}/%{_webapp}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/httpd.conf
