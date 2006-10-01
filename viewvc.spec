@@ -75,13 +75,11 @@ ScriptAlias /cgi-bin/viewvc-query.cgi %{_appdir}/bin/cgi/query.cgi
 <Location /cgi-bin/viewvc.cgi>
     Allow from all
 
-# TODO: make mod_python example instead mod_perl
-# if using apache2 mod_perl:
-#   <IfModule mod_perl.c>
-#       SetHandler perl-script
-#       PerlResponseHandler ModPerl::Registry
-#       PerlOptions +ParseHeaders
-#       Options ExecCGI
+# if using apache2 mod_python:
+#   <IfModule mod_python.c>
+#        AddHandler mod_python .py
+#        PythonHandler handler 
+#        PythonDebug Off 
 #   </IfModule>
 </Location>
 
@@ -108,14 +106,12 @@ install apache.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
 install apache.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 #install lighttpd.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/lighttpd.conf
 
-cp -Rf bin lib templates	$RPM_BUILD_ROOT%{_appdir}
-cp -f cvsgraph.conf.dist	$RPM_BUILD_ROOT%{_sysconfdir}/cvsgraph.conf
-cp -f viewvc.conf.dist		$RPM_BUILD_ROOT%{_sysconfdir}/viewvc.conf
+./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
+
+mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf 
+mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf 
 ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
-
-# compile the scripts
-%{py_comp} $RPM_BUILD_ROOT%{_appdir}/lib
 
 # %webapp_* macros usage extracted from /usr/lib/rpm/macros.build:
 #
