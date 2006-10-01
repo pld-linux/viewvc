@@ -42,19 +42,23 @@ out of your version control tool, but much more prettily than the
 average textual command-line program output.
 
 Here are some of the additional features of ViewVC:
- Support for filesystem-accessible CVS and Subversion repositories.
- Individually configurable virtual host support.
- Line-based annotation/blame display.
- Revision graph capabilities (via integration with CvsGraph) (CVS only).
- Syntax highlighting support (via integration with GNU enscript or Highlight).
- Bonsai-like repository query facilities.
- Template-driven output generation.
- Colorized, side-by-side differences.
- Tarball generation (by tag/branch for CVS, by revision for Subversion).
- I18N support based on the Accept-Language request header.
- Ability to run either as CGI script or as a standalone server.
- Regexp-based file searching.
- INI-like configuration file (as opposed to requiring actual code tweaks).
+- Support for filesystem-accessible CVS and Subversion repositories.
+- Individually configurable virtual host support.
+- Line-based annotation/blame display.
+- Revision graph capabilities (via integration with CvsGraph) (CVS
+  only).
+- Syntax highlighting support (via integration with GNU enscript or
+  Highlight).
+- Bonsai-like repository query facilities.
+- Template-driven output generation.
+- Colorized, side-by-side differences.
+- Tarball generation (by tag/branch for CVS, by revision for
+  Subversion).
+- I18N support based on the Accept-Language request header.
+- Ability to run either as CGI script or as a standalone server.
+- Regexp-based file searching.
+- INI-like configuration file (as opposed to requiring actual code
+  tweaks).
 
 #%%description -l pl
 
@@ -109,12 +113,12 @@ install apache.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 
 ./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
 
-mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf 
-mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf 
+mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf
+mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
 ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 
-# %webapp_* macros usage extracted from /usr/lib/rpm/macros.build:
+# %webapp_* macros usage extracted from %{_prefix}/lib/rpm/macros.build:
 #
 # Usage:
 #   %%webapp_register HTTPD WEBAPP
@@ -132,97 +136,13 @@ ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 %triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
 
+%if 0
 %triggerin -- lighttpd
 %webapp_register lighttpd %{_webapp}
 
 %triggerun -- lighttpd
 %webapp_unregister lighttpd %{_webapp}
-
-%if 00000000000000000000000000000000000
-# SAMPLE TRIGGER FOR MIGRATION PURPOSES
-%triggerpostun -- %{name} < 1.3.9-1.4
-# rescue app configs. issue this in old config dir to get a list:
-# rpm -qfl .|grep `pwd`/|awk -F/ '{print $NF}'|egrep -v 'apache|httpd'|xargs
-for i in config.inc.php; do
-	if [ -f /etc/%{name}/$i.rpmsave ]; then
-		mv -f %{_webapps}/%{_webapp}/$i{,.rpmnew}
-		mv -f /etc/%{name}/$i.rpmsave %{_webapps}/%{_webapp}/$i
-	fi
-done
-
-# nuke very-old config location (this mostly for Ra)
-if [ -f /etc/httpd/httpd.conf ]; then
-	sed -i -e "/^Include.*%{name}.conf/d" /etc/httpd/httpd.conf
-	httpd_reload=1
-fi
-
-# migrate from httpd (apache2) config dir
-if [ -f /etc/httpd/%{name}.conf.rpmsave ]; then
-	cp -f %{_webapps}/%{_webapp}/httpd.conf{,.rpmnew}
-	mv -f /etc/httpd/%{name}.conf.rpmsave %{_webapps}/%{_webapp}/httpd.conf
-	httpd_reload=1
-fi
-
-# migrate from apache-config macros
-if [ -f /etc/%{name}/apache.conf.rpmsave ]; then
-	if [ -d /etc/apache/webapps.d ]; then
-		cp -f %{_webapps}/%{_webapp}/apache.conf{,.rpmnew}
-		cp -f /etc/%{name}/apache.conf.rpmsave %{_webapps}/%{_webapp}/apache.conf
-	fi
-
-	if [ -d /etc/httpd/webapps.d ]; then
-		cp -f %{_webapps}/%{_webapp}/httpd.conf{,.rpmnew}
-		cp -f /etc/%{name}/apache.conf.rpmsave %{_webapps}/%{_webapp}/httpd.conf
-	fi
-	rm -f /etc/%{name}/apache.conf.rpmsave
-fi
-
-# same but without separate %{_webapps}/%{_webapp} for package
-if [ -f /etc/apache-%{name}.conf.rpmsave ]; then
-	if [ -d /etc/apache/webapps.d ]; then
-		cp -f %{_webapps}/%{_webapp}/apache.conf{,.rpmnew}
-		cp -f /etc/apache-%{name}.conf.rpmsave %{_webapps}/%{_webapp}/apache.conf
-	fi
-
-	if [ -d /etc/httpd/webapps.d ]; then
-		cp -f %{_webapps}/%{_webapp}/httpd.conf{,.rpmnew}
-		cp -f /etc/apache-%{name}.conf.rpmsave %{_webapps}/%{_webapp}/httpd.conf
-	fi
-	rm -f /etc/apache-%{name}.conf.rpmsave
-fi
-
-# update htpasswd path
-#sed -i -e 's,/etc/%{name},%{_webapps}/%{_webapp},' %{_webapps}/%{_webapp}/{apache,httpd}.conf
-
-# migrating from earlier apache-config?
-if [ -L /etc/apache/conf.d/99_%{name}.conf ] || [ -L /etc/httpd/httpd.conf/99_%{name}.conf ]; then
-	if [ -L /etc/apache/conf.d/99_%{name}.conf ]; then
-		rm -f /etc/apache/conf.d/99_%{name}.conf
-		apache_reload=1
-	fi
-	if [ -L /etc/httpd/httpd.conf/99_%{name}.conf ]; then
-		rm -f /etc/httpd/httpd.conf/99_%{name}.conf
-		httpd_reload=1
-	fi
-else
-	# no earlier registration. assume migration from Ra
-	if [ -d /etc/apache/webapps.d ]; then
-		apache_reload=1
-	fi
-	if [ -d /etc/httpd/webapps.d ]; then
-		httpd_reload=1
-	fi
-fi
-
-if [ "$apache_reload" ]; then
-%{_sbindir}/webapp register apache %{_webapp}
-	%service -q apache reload
-fi
-if [ "$httpd_reload" ]; then
-%{_sbindir}/webapp register httpd %{_webapp}
-	%service -q httpd reload
-fi
-%endif # END OF SAMPLE TRIGGER
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
