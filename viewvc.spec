@@ -1,5 +1,5 @@
-Summary:	Browser interface for CVS and subversion version control repositories
-#Summary(pl):
+Summary:	Browser interface for CVS and Subversion version control repositories
+Summary(pl):	Interfejs przegl±darki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
 Version:	1.0.2
 Release:	0.2
@@ -50,25 +50,62 @@ Here are some of the additional features of ViewVC:
 
 In order to run viewvc you must install viewvc-cgi or viewvc-mod_python package.
 
-#%%description -l pl
+%description -l pl
+ViewVC to interfejs przegl±darki do repozytoriów systemów kontroli
+wersji CVS i Subversion. Generuje oparty o szablony HTML prezentuj±cy
+listingi katalogów, rewizji i historii zmian z mo¿liwo¶ci± nawigacji.
+Mo¿e wy¶wietlaæ okre¶lone wersje plików oraz ró¿nice miêdzy wersjami.
+Zasadniczo ViewVC udostêpnia spor± funkcjonalno¶æ generowania
+raportów, jakiej mo¿na by oczekiwaæ od narzêdzi do kontroli wersji,
+ale daje ona du¿o ³adniejsze wyniki ni¿ w przypadku narzêdzi
+dzia³aj±cych z linii poleceñ.
+
+Niektóre dodatkowe mo¿liwo¶ci ViewVC:
+- obs³uga repozytoriów CVS i Subversion dostêpnych w systemie plików
+- oddzielnie konfigurowalna obs³uga wirtualnych hostów
+- liniowe wy¶wietlanie przypisów/autorów ostatnich zmian
+- mo¿liwo¶æ rysowania wykresów rewizji (poprzez integracjê z
+  cvsgraphem - tylko CVS)
+- obs³uga pod¶wietlania sk³adni (poprzez integracjê z GNU enscriptem
+  lub Highlightem)
+- uproszczenie zapytañ w stylu Bonsai
+- generowanie wyj¶cia w oparciu o szablony
+- kolorowe, dwustronne ró¿nice
+- generowanie tarballi (po tagu/branchu w CVS-ie, po rewizji w
+  Subversion)
+- obs³uga I18N w oparciu o nag³ówek ¿±dania Accept-Language
+- mo¿liwo¶æ uruchamiania jako skrypt CGI i samodzielny serwer
+- wyszukiwanie plików w oparciu o wyra¿enia regularne
+- plik konfiguracyjny w stylu INI (nie wymagaj±cy modyfikacji kodu).
+
+Aby uruchomiæ viewvc nale¿y zainstalowaæ pakiet viewvc-cgi lub
+viewvc-mod_python.
 
 %package cgi
-Summary:	ViewVC - cgi interface
+Summary:	ViewVC - CGI interface
+Summary(pl):	ViewVC - interfejs CGI
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	webserver(cgi)
 
 %description cgi
-ViewVC - cgi interface.
+ViewVC - CGI interface.
+
+%description cgi -l pl
+ViewVC - interfejs CGI.
 
 %package mod_python 
 Summary:	ViewVC - mod_python interface
+Summary(pl):	ViewVC - interfejs mod_python
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	apache-mod_python
 
 %description mod_python
 ViewVC - mod_python interface.
+
+%description mod_python -l pl
+ViewVC - interfejs mod_python.
 
 %prep
 %setup -q
@@ -126,6 +163,9 @@ mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
 ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %triggerin -- apache1 < 1.3.37-3, apache1-base
 %webapp_register apache %{_webapp}
 
@@ -146,9 +186,6 @@ ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 %webapp_unregister lighttpd %{_webapp}
 %endif
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
 %doc CHANGES COMMITTERS INSTALL TODO viewvc.org/license-1.html
@@ -157,6 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/httpd.conf
 #%%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/lighttpd.conf
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
+%dir %{_appdir}
 %dir %{_appdir}/bin
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_appdir}/bin/mod_python/.htaccess
 %attr(750,root,http) %{_appdir}/bin/standalone.py
