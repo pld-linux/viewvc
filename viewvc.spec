@@ -1,12 +1,12 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl):	Interfejs przegl±darki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
-Version:	1.0.2
-Release:	0.2
-License:	distributable
+Version:	1.0.3
+Release:	0.1
+License:	BSD	
 Group:		Applications/WWW
-Source0:	http://viewvc.tigris.org/files/documents/3330/34450/%{name}-%{version}.tar.gz
-# Source0-md5:	47569c8ab2ac67831340e460e685c3a9
+Source0:	http://viewvc.tigris.org/files/documents/3330/34803/%{name}-%{version}.tar.gz
+# Source0-md5:	3d44ad485d38bf9f61d8111661260b4a
 URL:		http://www.viewvc.org/
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -189,7 +189,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES COMMITTERS INSTALL TODO viewvc.org/license-1.html
-%dir %attr(750,root,http) %{_webapps}/%{_webapp}
+%dir %attr(755,root,http) %{_webapps}/%{_webapp}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/httpd.conf
 #%%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/lighttpd.conf
@@ -197,11 +197,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_appdir}
 %dir %{_appdir}/bin
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_appdir}/bin/mod_python/.htaccess
-%attr(750,root,http) %{_appdir}/bin/standalone.py
-%attr(750,root,http) %{_appdir}/bin/loginfo-handler
-%attr(750,root,http) %{_appdir}/bin/cvsdbadmin
-%attr(750,root,http) %{_appdir}/bin/svndbadmin
-%attr(750,root,http) %{_appdir}/bin/make-database
+%attr(755,root,root) %{_appdir}/bin/standalone.py
+%attr(755,root,root) %{_appdir}/bin/loginfo-handler
+%attr(755,root,root) %{_appdir}/bin/cvsdbadmin
+%attr(755,root,root) %{_appdir}/bin/svndbadmin
+%attr(755,root,root) %{_appdir}/bin/make-database
 %{_appdir}/viewvc.conf
 %{_appdir}/cvsgraph.conf
 %dir %{_appdir}/lib
@@ -298,8 +298,8 @@ rm -rf $RPM_BUILD_ROOT
 %files cgi
 %defattr(644,root,root,755)
 %dir %{_appdir}/bin/cgi
-%attr(750,root,http) %{_appdir}/bin/cgi/viewvc.cgi
-%attr(750,root,http) %{_appdir}/bin/cgi/query.cgi
+%attr(755,root,root) %{_appdir}/bin/cgi/viewvc.cgi
+%attr(755,root,root) %{_appdir}/bin/cgi/query.cgi
 
 %files mod_python
 %defattr(644,root,root,755)
