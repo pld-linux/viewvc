@@ -2,8 +2,8 @@ Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl):	Interfejs przegl±darki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
 Version:	1.0.3
-Release:	0.1
-License:	BSD	
+Release:	0.2
+License:	BSD
 Group:		Applications/WWW
 Source0:	http://viewvc.tigris.org/files/documents/3330/34803/%{name}-%{version}.tar.gz
 # Source0-md5:	3d44ad485d38bf9f61d8111661260b4a
@@ -48,7 +48,8 @@ Here are some of the additional features of ViewVC:
 - INI-like configuration file (as opposed to requiring actual code
   tweaks).
 
-In order to run viewvc you must install viewvc-cgi or viewvc-mod_python package.
+In order to run viewvc you must install viewvc-cgi or
+viewvc-mod_python package.
 
 %description -l pl
 ViewVC to interfejs przegl±darki do repozytoriów systemów kontroli
@@ -94,7 +95,7 @@ ViewVC - CGI interface.
 %description cgi -l pl
 ViewVC - interfejs CGI.
 
-%package mod_python 
+%package mod_python
 Summary:	ViewVC - mod_python interface
 Summary(pl):	ViewVC - interfejs mod_python
 Group:		Applications/WWW
@@ -110,6 +111,7 @@ ViewVC - interfejs mod_python.
 %prep
 %setup -q
 
+# TODO: move to SourceX
 cat > apache.conf <<'EOF'
 
 <Directory %{_appdir}>
@@ -162,6 +164,9 @@ mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf
 mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
 ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
+
+%py_postclean %{_appdir}/lib
+rm -f $RPM_BUILD_ROOT%{_appdir}/lib/win32popen.pyc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
