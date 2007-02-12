@@ -1,5 +1,5 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
-Summary(pl.UTF-8):   Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
+Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
 Version:	1.0.3
 Release:	0.2
@@ -84,7 +84,7 @@ viewvc-mod_python.
 
 %package cgi
 Summary:	ViewVC - CGI interface
-Summary(pl.UTF-8):   ViewVC - interfejs CGI
+Summary(pl.UTF-8):	ViewVC - interfejs CGI
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	webserver(cgi)
@@ -97,7 +97,7 @@ ViewVC - interfejs CGI.
 
 %package mod_python
 Summary:	ViewVC - mod_python interface
-Summary(pl.UTF-8):   ViewVC - interfejs mod_python
+Summary(pl.UTF-8):	ViewVC - interfejs mod_python
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	apache-mod_python
