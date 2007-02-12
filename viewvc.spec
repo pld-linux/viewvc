@@ -1,5 +1,5 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
-Summary(pl):	Interfejs przegl±darki do repozytoriów systemów kontroli wersji CVS i Subversion
+Summary(pl.UTF-8):   Interfejs przeglÄ…darki do repozytoriÃ³w systemÃ³w kontroli wersji CVS i Subversion
 Name:		viewvc
 Version:	1.0.3
 Release:	0.2
@@ -51,40 +51,40 @@ Here are some of the additional features of ViewVC:
 In order to run viewvc you must install viewvc-cgi or
 viewvc-mod_python package.
 
-%description -l pl
-ViewVC to interfejs przegl±darki do repozytoriów systemów kontroli
-wersji CVS i Subversion. Generuje oparty o szablony HTML prezentuj±cy
-listingi katalogów, rewizji i historii zmian z mo¿liwo¶ci± nawigacji.
-Mo¿e wy¶wietlaæ okre¶lone wersje plików oraz ró¿nice miêdzy wersjami.
-Zasadniczo ViewVC udostêpnia spor± funkcjonalno¶æ generowania
-raportów, jakiej mo¿na by oczekiwaæ od narzêdzi do kontroli wersji,
-ale daje ona du¿o ³adniejsze wyniki ni¿ w przypadku narzêdzi
-dzia³aj±cych z linii poleceñ.
+%description -l pl.UTF-8
+ViewVC to interfejs przeglÄ…darki do repozytoriÃ³w systemÃ³w kontroli
+wersji CVS i Subversion. Generuje oparty o szablony HTML prezentujÄ…cy
+listingi katalogÃ³w, rewizji i historii zmian z moÅ¼liwoÅ›ciÄ… nawigacji.
+MoÅ¼e wyÅ›wietlaÄ‡ okreÅ›lone wersje plikÃ³w oraz rÃ³Å¼nice miÄ™dzy wersjami.
+Zasadniczo ViewVC udostÄ™pnia sporÄ… funkcjonalnoÅ›Ä‡ generowania
+raportÃ³w, jakiej moÅ¼na by oczekiwaÄ‡ od narzÄ™dzi do kontroli wersji,
+ale daje ona duÅ¼o Å‚adniejsze wyniki niÅ¼ w przypadku narzÄ™dzi
+dziaÅ‚ajÄ…cych z linii poleceÅ„.
 
-Niektóre dodatkowe mo¿liwo¶ci ViewVC:
-- obs³uga repozytoriów CVS i Subversion dostêpnych w systemie plików
-- oddzielnie konfigurowalna obs³uga wirtualnych hostów
-- liniowe wy¶wietlanie przypisów/autorów ostatnich zmian
-- mo¿liwo¶æ rysowania wykresów rewizji (poprzez integracjê z
+NiektÃ³re dodatkowe moÅ¼liwoÅ›ci ViewVC:
+- obsÅ‚uga repozytoriÃ³w CVS i Subversion dostÄ™pnych w systemie plikÃ³w
+- oddzielnie konfigurowalna obsÅ‚uga wirtualnych hostÃ³w
+- liniowe wyÅ›wietlanie przypisÃ³w/autorÃ³w ostatnich zmian
+- moÅ¼liwoÅ›Ä‡ rysowania wykresÃ³w rewizji (poprzez integracjÄ™ z
   cvsgraphem - tylko CVS)
-- obs³uga pod¶wietlania sk³adni (poprzez integracjê z GNU enscriptem
+- obsÅ‚uga podÅ›wietlania skÅ‚adni (poprzez integracjÄ™ z GNU enscriptem
   lub Highlightem)
-- uproszczenie zapytañ w stylu Bonsai
-- generowanie wyj¶cia w oparciu o szablony
-- kolorowe, dwustronne ró¿nice
+- uproszczenie zapytaÅ„ w stylu Bonsai
+- generowanie wyjÅ›cia w oparciu o szablony
+- kolorowe, dwustronne rÃ³Å¼nice
 - generowanie tarballi (po tagu/branchu w CVS-ie, po rewizji w
   Subversion)
-- obs³uga I18N w oparciu o nag³ówek ¿±dania Accept-Language
-- mo¿liwo¶æ uruchamiania jako skrypt CGI i samodzielny serwer
-- wyszukiwanie plików w oparciu o wyra¿enia regularne
-- plik konfiguracyjny w stylu INI (nie wymagaj±cy modyfikacji kodu).
+- obsÅ‚uga I18N w oparciu o nagÅ‚Ã³wek Å¼Ä…dania Accept-Language
+- moÅ¼liwoÅ›Ä‡ uruchamiania jako skrypt CGI i samodzielny serwer
+- wyszukiwanie plikÃ³w w oparciu o wyraÅ¼enia regularne
+- plik konfiguracyjny w stylu INI (nie wymagajÄ…cy modyfikacji kodu).
 
-Aby uruchomiæ viewvc nale¿y zainstalowaæ pakiet viewvc-cgi lub
+Aby uruchomiÄ‡ viewvc naleÅ¼y zainstalowaÄ‡ pakiet viewvc-cgi lub
 viewvc-mod_python.
 
 %package cgi
 Summary:	ViewVC - CGI interface
-Summary(pl):	ViewVC - interfejs CGI
+Summary(pl.UTF-8):   ViewVC - interfejs CGI
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	webserver(cgi)
@@ -92,12 +92,12 @@ Requires:	webserver(cgi)
 %description cgi
 ViewVC - CGI interface.
 
-%description cgi -l pl
+%description cgi -l pl.UTF-8
 ViewVC - interfejs CGI.
 
 %package mod_python
 Summary:	ViewVC - mod_python interface
-Summary(pl):	ViewVC - interfejs mod_python
+Summary(pl.UTF-8):   ViewVC - interfejs mod_python
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	apache-mod_python
@@ -105,7 +105,7 @@ Requires:	apache-mod_python
 %description mod_python
 ViewVC - mod_python interface.
 
-%description mod_python -l pl
+%description mod_python -l pl.UTF-8
 ViewVC - interfejs mod_python.
 
 %prep
