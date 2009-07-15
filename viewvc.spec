@@ -1,12 +1,12 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
-Version:	1.0.7
+Version:	1.1.1
 Release:	0.1
 License:	BSD
 Group:		Applications/WWW
 Source0:	http://www.viewvc.org/%{name}-%{version}.tar.gz
-# Source0-md5:	cfc8c51418114704c23de64f8e6c04dd
+# Source0-md5:	73f8455e8ddd3d08201ab1533a408554
 URL:		http://www.viewvc.org/
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -193,7 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES COMMITTERS INSTALL TODO
+%doc CHANGES COMMITTERS INSTALL
 %dir %attr(755,root,http) %{_webapps}/%{_webapp}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/httpd.conf
@@ -226,10 +226,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/lib/py2html.py[co]
 %{_appdir}/lib/query.py[co]
 %{_appdir}/lib/sapi.py[co]
+%dir %{_appdir}/lib/vcauth
+%{_appdir}/lib/vcauth/__init__.py[co]
 %dir %{_appdir}/lib/vclib
 %{_appdir}/lib/vclib/__init__.py[co]
-%dir %{_appdir}/lib/vclib/bincvs
-%{_appdir}/lib/vclib/bincvs/__init__.py[co]
 %dir %{_appdir}/lib/vclib/ccvs
 %{_appdir}/lib/vclib/ccvs/__init__.py[co]
 %{_appdir}/lib/vclib/ccvs/blame.py[co]
@@ -241,14 +241,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/lib/vclib/ccvs/rcsparse/texttools.py[co]
 %dir %{_appdir}/lib/vclib/svn
 %{_appdir}/lib/vclib/svn/__init__.py[co]
-%dir %{_appdir}/lib/vclib/svn_ra
-%{_appdir}/lib/vclib/svn_ra/__init__.py[co]
+%{_appdir}/lib/vclib/svn/svn_repos.pyc
 %{_appdir}/lib/viewvc.py[co]
 %dir %{_appdir}/templates
-%{_appdir}/templates/annotate.ezt
 %{_appdir}/templates/diff.ezt
 %{_appdir}/templates/dir_new.ezt
 %{_appdir}/templates/directory.ezt
+%{_appdir}/templates/file.ezt
 %dir %{_appdir}/templates/docroot
 %{_appdir}/templates/docroot/help.css
 %{_appdir}/templates/docroot/help_dirview.html
@@ -271,10 +270,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/templates/docroot/images/forward.png
 %{_appdir}/templates/docroot/images/list.png
 %{_appdir}/templates/docroot/images/log.png
-%{_appdir}/templates/docroot/images/logo.png
 %{_appdir}/templates/docroot/images/text.png
 %{_appdir}/templates/docroot/images/up.png
 %{_appdir}/templates/docroot/images/view.png
+%{_appdir}/templates/docroot/images/viewvc-logo.png
 %{_appdir}/templates/docroot/styles.css
 %{_appdir}/templates/error.ezt
 %{_appdir}/templates/graph.ezt
@@ -290,9 +289,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/templates/include/paging.ezt
 %{_appdir}/templates/include/pathrev_form.ezt
 %{_appdir}/templates/include/sort.ezt
+%{_appdir}/templates/include/props.ezt
 %{_appdir}/templates/log.ezt
 %{_appdir}/templates/log_table.ezt
-%{_appdir}/templates/markup.ezt
 %{_appdir}/templates/query.ezt
 %{_appdir}/templates/query_form.ezt
 %{_appdir}/templates/query_results.ezt
