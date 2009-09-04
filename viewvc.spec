@@ -228,6 +228,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdir}/lib/query.py[co]
 %{_appdir}/lib/sapi.py[co]
 %dir %{_appdir}/lib/vcauth
+%dir %{_appdir}/lib/vcauth/forbidden
+%dir %{_appdir}/lib/vcauth/forbiddenre
+%dir %{_appdir}/lib/vcauth/svnauthz
 %{_appdir}/lib/vcauth/__init__.py[co]
 %{_appdir}/lib/vcauth/forbidden/__init__.py[co]
 %{_appdir}/lib/vcauth/forbiddenre/__init__.py[co]
