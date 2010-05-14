@@ -9,7 +9,9 @@ Source0:	http://www.viewvc.org/%{name}-%{version}.tar.gz
 # Source0-md5:	da7bbcf6800383ebb23405a064c6faf8
 Source1:	%{name}-httpd.conf
 URL:		http://www.viewvc.org/
+BuildRequires:	python
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	%{name}-template
 Requires:	webapps
@@ -56,22 +58,21 @@ viewvc-mod_python package.
 %description -l pl.UTF-8
 ViewVC to interfejs przeglądarki do repozytoriów systemów kontroli
 wersji CVS i Subversion. Generuje oparty o szablony HTML prezentujący
-listingi katalogów, rewizji i historii zmian z możliwością
-nawigacji. Może wyświetlać określone wersje plików oraz różnice
-między wersjami. Zasadniczo ViewVC udostępnia sporą
-funkcjonalność generowania raportów, jakiej można by oczekiwać od
-narzędzi do kontroli wersji, ale daje ona dużo ładniejsze wyniki
-niż w przypadku narzędzi działających z linii poleceń.
+listingi katalogów, rewizji i historii zmian z możliwością nawigacji.
+Może wyświetlać określone wersje plików oraz różnice między wersjami.
+Zasadniczo ViewVC udostępnia sporą funkcjonalność generowania
+raportów, jakiej można by oczekiwać od narzędzi do kontroli wersji,
+ale daje ona dużo ładniejsze wyniki niż w przypadku narzędzi
+działających z linii poleceń.
 
 Niektóre dodatkowe możliwości ViewVC:
-- obsługa repozytoriów CVS i Subversion dostępnych w systemie
-  plików
+- obsługa repozytoriów CVS i Subversion dostępnych w systemie plików
 - oddzielnie konfigurowalna obsługa wirtualnych hostów
 - liniowe wyświetlanie przypisów/autorów ostatnich zmian
 - możliwość rysowania wykresów rewizji (poprzez integrację z
   cvsgraphem - tylko CVS)
-- obsługa podświetlania składni (poprzez integrację z GNU
-  enscriptem lub Highlightem)
+- obsługa podświetlania składni (poprzez integrację z GNU enscriptem
+  lub Highlightem)
 - uproszczenie zapytań w stylu Bonsai
 - generowanie wyjścia w oparciu o szablony
 - kolorowe, dwustronne różnice
