@@ -162,8 +162,8 @@ ViewVC - szablon viewsvn
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_webapps}/%{_webapp},%{_appdir},%{_sysconfdir}}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
-install %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
+cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
+cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 #install lighttpd.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/lighttpd.conf
 
 ./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
@@ -174,7 +174,13 @@ ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
 ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 
 %py_postclean %{_appdir}/lib
+
+# cleanup
 rm -f $RPM_BUILD_ROOT%{_appdir}/lib/win32popen.pyc
+rm -f $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf.dist
+rm -f $RPM_BUILD_ROOT%{_appdir}/mimetypes.conf.dist
+rm -f $RPM_BUILD_ROOT%{_appdir}/viewvc.conf.dist
+rm -rf $RPM_BUILD_ROOT%{_appdir}/lib/vclib/ccvs/rcsparse/test-data
 
 %clean
 rm -rf $RPM_BUILD_ROOT
