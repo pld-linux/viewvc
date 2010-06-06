@@ -105,6 +105,7 @@ Summary(pl.UTF-8):	ViewVC - interfejs mod_python
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	apache-mod_python
+Requires:	python-subversion
 
 %description mod_python
 ViewVC - mod_python interface.
