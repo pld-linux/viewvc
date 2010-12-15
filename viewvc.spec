@@ -1,5 +1,6 @@
 # TODO
 # - fcgi subpackage
+# - full webapps (move configs from /etc/viewvc to webapps dir), or rather _sysconfdir defined wrong
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
