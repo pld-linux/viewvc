@@ -5,12 +5,13 @@ Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
 Version:	1.1.9
-Release:	1
+Release:	2
 License:	BSD
 Group:		Applications/WWW
 Source0:	http://www.viewvc.org/%{name}-%{version}.tar.gz
 # Source0-md5:	13292307114b0f4bb4fc322597ec8007
-Source1:	%{name}-httpd.conf
+Source1:	%{name}-apache.conf
+Source2:	%{name}-httpd.conf
 URL:		http://www.viewvc.org/
 BuildRequires:	python
 BuildRequires:	python-modules
@@ -19,6 +20,7 @@ BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	%{name}-template
 Requires:	webapps
 Obsoletes:	viewcvs
+Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -167,7 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_webapps}/%{_webapp},%{_appdir},%{_sysconfdir}}
 
 cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
-cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
+cp -a %{SOURCE2} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 #install lighttpd.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/lighttpd.conf
 
 ./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
@@ -195,10 +197,10 @@ rm -rf $RPM_BUILD_ROOT
 %triggerun -- apache1 < 1.3.37-3, apache1-base
 %webapp_unregister apache %{_webapp}
 
-%triggerin -- apache < 2.2.0, apache-base
+%triggerin -- apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun -- apache < 2.2.0, apache-base
+%triggerun -- apache-base
 %webapp_unregister httpd %{_webapp}
 
 %if 0
