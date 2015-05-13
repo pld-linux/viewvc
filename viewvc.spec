@@ -10,7 +10,7 @@ License:	BSD
 Group:		Applications/WWW
 Source0:	http://www.viewvc.org/%{name}-%{version}.tar.gz
 # Source0-md5:	13292307114b0f4bb4fc322597ec8007
-Source1:	%{name}-httpd.conf
+Source1:	apache.conf
 URL:		http://www.viewvc.org/
 BuildRequires:	python
 BuildRequires:	python-modules
@@ -166,8 +166,8 @@ ViewVC - szablon viewsvn
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_webapps}/%{_webapp},%{_appdir},%{_sysconfdir}}
 
-cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
-cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 #install lighttpd.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/lighttpd.conf
 
 ./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
