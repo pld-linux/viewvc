@@ -4,14 +4,14 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
-Version:	1.1.9
+Version:	1.1.23
 Release:	1
 License:	BSD
 Group:		Applications/WWW
-Source0:	http://www.viewvc.org/%{name}-%{version}.tar.gz
-# Source0-md5:	13292307114b0f4bb4fc322597ec8007
+Source0:	http://viewvc.tigris.org/files/documents/3330/49392/%{name}-%{version}.tar.gz
+# Source0-md5:	796aacdfcd8ab87a196d97df2691cd3f
 Source1:	apache.conf
-URL:		http://www.viewvc.org/
+URL:		http://viewvc.org/
 BuildRequires:	python
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
@@ -170,21 +170,23 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/apache.conf
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/httpd.conf
 #install lighttpd.conf $RPM_BUILD_ROOT%{_webapps}/%{_webapp}/lighttpd.conf
 
-./viewvc-install --destdir=$RPM_BUILD_ROOT --prefix=%{_appdir}
+./viewvc-install \
+	--prefix=%{_appdir} \
+	--destdir=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf
-mv -f $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
-ln -sf %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
-ln -sf %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
+mv  $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/cvsgraph.conf
+mv $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}/viewvc.conf
+ln -s %{_sysconfdir}/cvsgraph.conf $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf
+ln -s %{_sysconfdir}/viewvc.conf $RPM_BUILD_ROOT%{_appdir}/viewvc.conf
 
 %py_postclean %{_appdir}/lib
 
 # cleanup
-rm -f $RPM_BUILD_ROOT%{_appdir}/lib/win32popen.pyc
-rm -f $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf.dist
-rm -f $RPM_BUILD_ROOT%{_appdir}/mimetypes.conf.dist
-rm -f $RPM_BUILD_ROOT%{_appdir}/viewvc.conf.dist
-rm -rf $RPM_BUILD_ROOT%{_appdir}/lib/vclib/ccvs/rcsparse/test-data
+rm $RPM_BUILD_ROOT%{_appdir}/lib/win32popen.pyc
+rm $RPM_BUILD_ROOT%{_appdir}/cvsgraph.conf.dist
+rm $RPM_BUILD_ROOT%{_appdir}/mimetypes.conf.dist
+rm $RPM_BUILD_ROOT%{_appdir}/viewvc.conf.dist
+rm -r $RPM_BUILD_ROOT%{_appdir}/lib/vclib/ccvs/rcsparse/test-data
 
 %clean
 rm -rf $RPM_BUILD_ROOT
