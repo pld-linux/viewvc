@@ -1,6 +1,5 @@
 # TODO
 # - fcgi subpackage
-# - full webapps (move configs from /etc/viewvc to webapps dir), or rather _sysconfdir defined wrong
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
@@ -24,7 +23,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_webapps	/etc/webapps
 %define		_webapp		%{name}
-%define		_sysconfdir	/etc/%{_webapp}
+%define		_sysconfdir	%{_webapps}/%{_webapp}
 %define		_appdir		%{_datadir}/%{_webapp}
 
 %description
@@ -191,6 +190,19 @@ rm -r $RPM_BUILD_ROOT%{_appdir}/lib/vclib/ccvs/rcsparse/test-data
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%triggerpostun -- %{name} < 1.1.23-1
+# skip on downgrade
+[ $1 -le 1 ] && exit 0
+
+for f in cvsgraph.conf viewvc.conf; do
+	test -f /etc/viewvc/$f.rpmsave || continue
+	cp -f %{_sysconfdir}/$f{,.rpmnew}
+	mv -vf /etc/viewvc/$f.rpmsave %{_sysconfdir}/$f
+done
+
+# ensure safe exit even if above move failed
+exit 0
+
 %triggerin -- apache1 < 1.3.37-3, apache1-base
 %webapp_register apache %{_webapp}
 
@@ -214,12 +226,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES COMMITTERS INSTALL
-%dir %attr(755,root,http) %{_webapps}/%{_webapp}
+%dir %attr(755,root,http) %{_sysconfdir}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/httpd.conf
 #%%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_webapps}/%{_webapp}/lighttpd.conf
-%dir %{_sysconfdir}
-%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsgraph.conf
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/viewvc.conf
 %dir %{_appdir}
 %dir %{_appdir}/bin
 %attr(755,root,root) %{_appdir}/bin/standalone.py
