@@ -20,6 +20,7 @@ Requires:	webapps
 Suggests:	cvsgraph >= 1.5.0
 Suggests:	python-MySQLdb >= 0.9.0
 Suggests:	python-pygments >= 0.9
+Suggests:	python-subversion
 Obsoletes:	viewcvs
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -110,7 +111,6 @@ Summary(pl.UTF-8):	ViewVC - interfejs mod_python
 Group:		Applications/WWW
 Requires:	%{name} = %{version}-%{release}
 Requires:	apache-mod_python
-Requires:	python-subversion
 
 %description mod_python
 ViewVC - mod_python interface.
@@ -145,7 +145,6 @@ ViewVC - newvc template
 
 %description template-newvc -l pl.UTF-8
 ViewVC - szablon newvc
-
 
 %package template-viewsvn
 Summary:	ViewVC - viewsvn template
