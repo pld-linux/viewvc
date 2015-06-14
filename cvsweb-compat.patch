@@ -1,0 +1,27 @@
+--- viewvc-1.1.23/lib/viewvc.py	2014-11-05 02:16:15.000000000 +0200
++++ viewvc-1.1.23/lib/viewvc.py	2015-06-14 22:03:20.000000000 +0300
+@@ -683,6 +683,8 @@
+   'sortdir'       : _re_validate_alpha,
+   'logsort'       : _re_validate_alpha,
+   'diff_format'   : _re_validate_alpha,
++  # old cvsweb for 'diff_format' option
++  'f'             : _re_validate_alpha,
+   'pathrev'       : _re_validate_revnum,
+   'dir_pagestart' : _re_validate_number,
+   'log_pagestart' : _re_validate_number,
+@@ -2651,5 +2653,5 @@
+ 
+ def view_log(request):
+   cfg = request.cfg
+-  diff_format = request.query_dict.get('diff_format', cfg.options.diff_format)
++  diff_format = request.query_dict.get('diff_format', request.query_dict.get('f', cfg.options.diff_format))
+   pathtype = request.pathtype
+@@ -3504,7 +3506,7 @@
+   diff_options = {}
+   human_readable = 0
+ 
+-  format = query_dict.get('diff_format', cfg.options.diff_format)
++  format = query_dict.get('diff_format', query_dict.get('f', cfg.options.diff_format))
+   if format == 'c':
+     diff_type = vclib.CONTEXT
+   elif format == 's':
