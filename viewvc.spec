@@ -18,6 +18,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	%{name}-template
 Requires:	webapps
+Suggests:	%{name}-cgi
 Suggests:	cvsgraph >= 1.5.0
 Suggests:	python-MySQLdb >= 0.9.0
 Suggests:	python-pygments >= 0.9
