@@ -294,7 +294,6 @@ exit 0
 %{_appdir}/lib/vclib/svn/svn_repos.py[co]
 %{_appdir}/lib/viewvc.py[co]
 %{_appdir}/mimetypes.conf
-%dir %{_appdir}/templates
 %dir %{_appdir}/templates-contrib
 %{_appdir}/templates-contrib/README
 
@@ -314,12 +313,12 @@ exit 0
 
 %files template-default
 %defattr(644,root,root,755)
-%{_appdir}/templates/
+%{_appdir}/templates
 
 %files template-newvc
 %defattr(644,root,root,755)
-%{_appdir}/templates-contrib/newvc/
+%{_appdir}/templates-contrib/newvc
 
 %files template-viewsvn
 %defattr(644,root,root,755)
-%{_appdir}/templates-contrib/viewsvn/
+%{_appdir}/templates-contrib/viewsvn
