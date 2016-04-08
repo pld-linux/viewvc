@@ -11,6 +11,7 @@ Source0:	http://viewvc.tigris.org/files/documents/3330/49471/%{name}-%{version}.
 # Source0-md5:	a4e46f20c4441bfdca0b1f1bcac446de
 Source1:	apache.conf
 Patch0:		cvsweb-compat.patch
+Patch1:		config.patch
 URL:		http://viewvc.org/
 BuildRequires:	python
 BuildRequires:	python-modules
@@ -165,6 +166,7 @@ ViewVC - szablon viewsvn
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT

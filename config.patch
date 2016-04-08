@@ -1,0 +1,129 @@
+--- viewvc-1.1.24/conf/viewvc.conf.dist		2016-04-08 10:18:28.009824630 +0300
++++ viewvc-1.1.24/conf/viewvc.conf.dist		2016-04-08 10:18:28.009824630 +0300
+@@ -389,7 +389,7 @@
+ ##           | directory and its contents (recursively).
+ ## ----------+---------------------------------------------------------
+ ##
+-#allowed_views = annotate, diff, markup, roots
++allowed_views = annotate, diff, markup, roots, co
+ 
+ ## Comma-delimited list of MIME content types (with support for fnmatch-
+ ## style glob characters) which are considered not-human-readable and for
+@@ -485,7 +485,7 @@
+ ## ALSO NOTE: If you choose one of the "co" or "markup" views, be sure
+ ## to enable it (via the allowed_views option)
+ ##
+-#default_file_view = log
++default_file_view = log
+ 
+ ## http_expiration_time: Expiration time (in seconds) for cacheable
+ ## pages served by ViewVC.  Note that in most cases, a cache aware
+@@ -494,14 +494,14 @@
+ ## will also revalidate the page when the reload button is pressed.
+ ## Set to 0 to disable the transmission of these caching headers.
+ ##
+-#http_expiration_time = 600
++http_expiration_time = 0
+ 
+ ## generate_etags: Generate Etag headers for relevant pages to assist
+ ## in browser caching.
+ ##   1      Generate Etags
+ ##   0      Don't generate Etags
+ ##
+-#generate_etags = 1
++generate_etags = 1
+ 
+ ## svn_ignore_mimetype: Don't consult the svn:mime-type property to
+ ## determine how to display a file in the markup view.  This is
+@@ -576,7 +576,7 @@
+ ##   l      Long human readable (more context)
+ ##   f      Full human readable (entire file)
+ ##
+-#diff_format = h
++diff_format = u
+ 
+ ## hr_breakable: Diff view line breaks
+ ##   1     lines break at spaces
+@@ -616,7 +616,7 @@
+ ## transfer size of ViewVC's responses to the client's request, but
+ ## will do so with a speed penalty.
+ ##
+-#allow_compress = 0
++allow_compress = 1
+ 
+ ## template_dir: The directory which contains the EZT templates used by
+ ## ViewVC to customize the display of the various output views.  ViewVC
+@@ -643,7 +643,15 @@
+ ## SEE ALSO: the [templates] configuration section, where you can
+ ## override templates on a per-view basis.
+ ##
+-#template_dir = templates
++## Install appropriate package:
++## - viewvc-template-default
++## - viewvc-template-viewsvn
++## - viewvc-template-newvc
++## And be sure to adjust also 'docroot' parameter
++#
++template_dir = templates
++#template_dir = templates-contrib/newvc/templates
++#template_dir = templates-contrib/viewsvn/templates
+ 
+ ## docroot: Web path to a directory that contains ViewVC static files
+ ## (stylesheets, images, etc.)  If set, static files will get
+@@ -658,7 +666,9 @@
+ ## still be based on the global default template set per 'template_dir'
+ ## above, not on 'template_dir' as overridden for a given root.
+ ##
+-#docroot = 
++docroot = /viewvc/template/default
++#docroot = /viewvc/template/newvc
++#docroot = /viewvc/template/viewsvn
+ 
+ ## show_subdir_lastmod: Show last changelog message for CVS subdirectories
+ ##
+@@ -692,11 +702,11 @@
+ 
+ ## use_localtime: Display dates as UTC or in local time zone.
+ ##
+-#use_localtime = 0
++use_localtime = 1
+ 
+ ## iso8601_dates: Display timestamps using a standard ISO-8601 format.
+ ##
+-#iso8601_timestamps = 0
++iso8601_timestamps = 0
+ 
+ ## short_log_len: The length (in characters) to which the most recent
+ ## log entry should be truncated when shown in the directory view.
+@@ -712,19 +722,19 @@
+ ## Use the 'mime_types_files' configuration option to specify MIME
+ ## type mapping files useful for making that determination.
+ ##
+-#enable_syntax_coloration = 1
++enable_syntax_coloration = 1
+ 
+ ## tabsize: The number of spaces into which horizontal tab characters
+ ## are converted when viewing file contents.  Set to 0 to preserve
+ ## tab characters.
+ ##
+-#tabsize = 8
++tabsize = 0
+ 
+ ## detect_encoding: Should we attempt to detect versioned file
+ ## character encodings?  [Requires 'chardet' module, and is currently
+ ## used only for the 'markup' and 'annotate' views.]
+ ##
+-#detect_encoding = 0
++detect_encoding = 1
+ 
+ ## use_cvsgraph: Use CvsGraph to offer visual graphs of CVS revision history.
+ ##
+@@ -750,7 +760,7 @@
+ ## period of time.  This option should only be used on sites with
+ ## trusted users. It is highly inadvisable to use this on a public site.
+ ##
+-#use_re_search = 0
++use_re_search = 1
+ 
+ ## dir_pagesize: Maximum number of directory entries on a given page.
+ ## This allows ViewVC to present discrete pages to the users instead of
