@@ -18,6 +18,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	%{name}-template
+Requires:	rcs
 Requires:	webapps
 Suggests:	%{name}-cgi
 Suggests:	cvsgraph >= 1.5.0
