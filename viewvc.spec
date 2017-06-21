@@ -3,12 +3,12 @@
 Summary:	Browser interface for CVS and Subversion version control repositories
 Summary(pl.UTF-8):	Interfejs przeglądarki do repozytoriów systemów kontroli wersji CVS i Subversion
 Name:		viewvc
-Version:	1.1.25
+Version:	1.1.26
 Release:	1
 License:	BSD
 Group:		Applications/WWW
 Source0:	https://github.com/viewvc/viewvc/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	7124a3de99fc00a9c7302f5387efcd8d
+# Source0-md5:	e4a84fef6d7fb0414c27faed4ff24c1e
 Source1:	apache.conf
 Patch0:		cvsweb-compat.patch
 Patch1:		config.patch
